@@ -26,7 +26,6 @@ import { useAuthContext } from 'src/auth/hooks';
 import { signInWithPassword } from 'src/auth/context/jwt';
 import { PATH_AFTER_SIGNIN } from 'src/config-global';
 
-
 // ----------------------------------------------------------------------
 
 export type SignInSchemaType = zod.infer<typeof SignInSchema>;
@@ -75,12 +74,11 @@ export function JwtSignInView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await signIn?.(data.email, data.password);
-      // await signInWithPassword({ email: data.email, password: data.password });
 
       router.push(returnTo || PATH_AFTER_SIGNIN);
     } catch (error) {
       console.error(error);
-      setErrorMsg(error instanceof Error ? error.message : error);
+      setErrorMsg(error.msg || (typeof error === 'string' ? error : error.message));
     }
   });
 

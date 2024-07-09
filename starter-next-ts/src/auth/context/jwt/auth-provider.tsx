@@ -119,10 +119,7 @@ export function AuthProvider({ children }: Props) {
 
     const { accessToken, user } = res.data;
 
-    console.log('Received accessToken:', accessToken);
-
     setSession(accessToken);
-    sessionStorage.setItem(STORAGE_KEY, accessToken);
 
     dispatch({
       type: Types.SIGNIN,
