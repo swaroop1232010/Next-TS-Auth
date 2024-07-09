@@ -13,7 +13,7 @@ export function DashboardView() {
 
   return (
     <DashboardContent maxWidth="xl">
-      <Typography variant="h4"> {`Welcome back 👋 \n ${user?.displayName}`} </Typography>
+      <Typography variant="h4"> {`Welcome back 👋 \n ${user?.displayName ? user.displayName : user?.firstName}`} </Typography>
     </DashboardContent>
   );
 }

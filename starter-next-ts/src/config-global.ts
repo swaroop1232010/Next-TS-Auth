@@ -30,6 +30,13 @@ export type ConfigValue = {
     measurementId: string;
     messagingSenderId: string;
   };
+  mongo: {
+    databaseUri: string;
+  };
+  jwt: {
+    secretKey: string;
+    // expiresIn: string;
+  };
 };
 
 // ----------------------------------------------------------------------
@@ -59,6 +66,12 @@ export const CONFIG: ConfigValue = {
     apiKey: process.env.NEXT_PUBLIC_MAPBOX_API_KEY ?? '',
   },
   /**
+   * JWT
+   */
+  jwt: {
+    secretKey: process.env.JWT_SECRET_KEY ?? '',
+  },
+  /**
    * Firebase
    */
   firebase: {
@@ -69,6 +82,9 @@ export const CONFIG: ConfigValue = {
     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? '',
     appId: process.env.NEXT_PUBLIC_FIREBASE_APPID ?? '',
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID ?? '',
+  },
+  mongo: {
+    databaseUri: process.env.DATABASE_URI ?? '',
   },
 };
 

@@ -14,7 +14,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
+import { useRouter, useSearchParams } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -24,6 +24,8 @@ import { Form, Field } from 'src/components/hook-form';
 
 import { useAuthContext } from 'src/auth/hooks';
 import { signInWithPassword } from 'src/auth/context/jwt';
+import { PATH_AFTER_SIGNIN } from 'src/config-global';
+
 
 // ----------------------------------------------------------------------
 
@@ -45,14 +47,18 @@ export const SignInSchema = zod.object({
 export function JwtSignInView() {
   const router = useRouter();
 
-  const { checkUserSession } = useAuthContext();
+  const { signIn } = useAuthContext();
 
   const [errorMsg, setErrorMsg] = useState('');
+
+  const searchParams = useSearchParams();
+
+  const returnTo = searchParams.get('returnTo');
 
   const password = useBoolean();
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
+    email: 'hello@gmail.com',
     password: '@demo1',
   };
 
@@ -68,10 +74,10 @@ export function JwtSignInView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await signInWithPassword({ email: data.email, password: data.password });
-      await checkUserSession?.();
+      await signIn?.(data.email, data.password);
+      // await signInWithPassword({ email: data.email, password: data.password });
 
-      router.refresh();
+      router.push(returnTo || PATH_AFTER_SIGNIN);
     } catch (error) {
       console.error(error);
       setErrorMsg(error instanceof Error ? error.message : error);

@@ -2,8 +2,8 @@
 
 import { useContext } from 'react';
 
-import { FirebaseAuthContext } from '../context/firebase/firebase-auth-context';
-// import { AuthContext } from '../context/auth-context';
+// import { FirebaseAuthContext } from '../context/firebase/firebase-auth-context';
+import { AuthContext } from '../context/auth-context';
 
 // ----------------------------------------------------------------------
 
@@ -12,6 +12,7 @@ import { FirebaseAuthContext } from '../context/firebase/firebase-auth-context';
  */
 
 /*
+*/
 export function useAuthContext() {
   const context = useContext(AuthContext);
   
@@ -21,17 +22,16 @@ export function useAuthContext() {
   
   return context;
 }
-*/
 
 /*
  * Firebase authentication
  */
-export function useAuthContext() {
-  const context = useContext(FirebaseAuthContext);
+// export function useAuthContext() {
+//   const context = useContext(FirebaseAuthContext);
 
-  if (!context) {
-    throw new Error('useAuthContext: Context must be used inside AuthProvider');
-  }
+//   if (!context) {
+//     throw new Error('useAuthContext: Context must be used inside AuthProvider');
+//   }
 
-  return context;
-}
+//   return context;
+// }

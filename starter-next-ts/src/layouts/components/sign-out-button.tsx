@@ -24,7 +24,6 @@ export function SignOutButton({ onClose, ...other }: Props) {
 
   const handleLogout = useCallback(async () => {
     try {
-      await signOut();
       await logout();
       await checkUserSession?.();
 

@@ -42,9 +42,13 @@ type CanRemove = {
 
 export type AuthContextValue = CanRemove & {
   user: UserType;
+  method: string;
   loading: boolean;
   authenticated: boolean;
   unauthenticated: boolean;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
+  logout: () => Promise<void>;
   checkUserSession?: () => Promise<void>;
 };
 

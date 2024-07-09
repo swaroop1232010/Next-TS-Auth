@@ -40,6 +40,7 @@ export const SignUpSchema = zod.object({
     .string()
     .min(1, { message: 'Password is required!' })
     .min(6, { message: 'Password must be at least 6 characters!' }),
+  role: zod.string().min(1, { message: 'Role is required!' }),
 });
 
 // ----------------------------------------------------------------------
@@ -58,6 +59,7 @@ export function JwtSignUpView() {
     lastName: 'Friend',
     email: 'hello@gmail.com',
     password: '@demo1',
+    role: 'admin',
   };
 
   const methods = useForm<SignUpSchemaType>({
@@ -77,10 +79,11 @@ export function JwtSignUpView() {
         password: data.password,
         firstName: data.firstName,
         lastName: data.lastName,
+        role: data.role,
       });
       await checkUserSession?.();
 
-      router.refresh();
+      router.push(paths.auth.jwt.signIn);
     } catch (error) {
       console.error(error);
       setErrorMsg(error instanceof Error ? error.message : error);
@@ -111,6 +114,7 @@ export function JwtSignUpView() {
       </Stack>
 
       <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
+      <Field.Text name="role" label="Role" InputLabelProps={{ shrink: true }} />
 
       <Field.Text
         name="password"
